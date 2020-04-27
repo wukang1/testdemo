@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kk.testdemo.mapper.InfoLandMapper">
+
+
+    <select id="queryArea" resultType="decimal">
+        SELECT
+            SUM(area)
+        FROM
+            pub_region a,
+            t_info_land b
+        WHERE
+            a.city_code = b.region
+        AND (a.city_code=#{cityCode} OR a.parent_code=#{cityCode})
+        GROUP BY a.parent_code
+    </select>
+
+    <select id="queryAllInfoLand" resultType="map">
+
+    </select>
+    <select id="getMaxId" resultType="_int">
+        SELECT MAX(id) FROM t_info_land
+    </select>
+</mapper>

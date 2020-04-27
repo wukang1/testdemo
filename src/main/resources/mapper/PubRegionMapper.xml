@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kk.testdemo.mapper.PubRegionMapper">
+
+
+    <select id="queryTopLevel" resultType="com.kk.testdemo.dto.PubRegionDTO">
+            SELECT
+                a.id,
+                a.city_code,
+                a.level_type,
+                a.parent_code,
+                b.area,
+                a.name,
+                b.nameArr
+            FROM
+                pub_region a
+            LEFT JOIN (
+                SELECT
+                    c.region,
+                    SUM(area) area,
+                    d.`name` nameArr
+                FROM
+                    t_info_land c,
+                    t_info_owner d
+                WHERE c.region=d.region AND c.owner_nm=d.nm
+                GROUP BY region
+            ) b ON a.city_code=b.region
+    </select>
+
+    <select id="queryAllSelect" resultType="com.kk.testdemo.model.PubRegion">
+            select * from pub_region LIMIT 10
+    </select>
+
+    <select id="queryTreeCount" resultType="com.kk.testdemo.dto.PubRegionDTO">
+        SELECT
+            a.id,
+            a.city_code,
+            a.level_type,
+            a.parent_code,
+            b.area,
+            a. NAME
+        FROM
+            pub_region a
+        INNER  JOIN (
+            SELECT
+                region,
+                SUM(area) area
+            FROM
+                t_info_land
+            GROUP BY
+                region
+        ) b ON a.city_code = b.region
+    </select>
+</mapper>

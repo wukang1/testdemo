@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kk.testdemo.mapper.InfoOwnerMapper">
+
+
+    <select id="getAllInfoOwner" resultType="map">
+        SELECT
+            a.id ownerId,
+            c.id landId,
+            c.id,
+            a.nm,
+            a.region,
+            a. NAME ownerName,
+            b. NAME regionName,
+            c.area
+        FROM
+            t_info_owner a,
+            pub_region b,
+            t_info_land c
+        WHERE
+            a.region = b.city_code
+        AND c.owner_nm=a.nm
+        <if test="searchKey != null and searchKey != ''">
+            AND CONCAT(a.nm, b. NAME,a. NAME) LIKE CONCAT('%',#{searchKey},'%')
+        </if>
+        ORDER BY c.id DESC
+    </select>
+    <select id="getMaxId" resultType="java.lang.Integer">
+        SELECT MAX(id) FROM t_info_owner
+    </select>
+    <select id="getNameArr" resultType="java.lang.String">
+        SELECT
+            GROUP_CONCAT(NAME) nameArr
+        FROM
+            t_info_owner
+        WHERE
+            region = #{region}
+    </select>
+    <select id="getInfoOwnerByCode" resultType="map">
+        SELECT
+            a. name,
+            sum(b.area) area,
+            a. NAME nameArr
+        FROM
+            t_info_owner a,
+            t_info_land b
+        WHERE
+            a.region = b.region AND a.nm=b.owner_nm
+        AND b.region = #{cityCode}
+        GROUP BY a.nm
+    </select>
+</mapper>
