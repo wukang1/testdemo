@@ -1,7 +1,5 @@
 package com.kk.testdemo;
 
-import com.kk.testdemo.mapper.PubRegionJPA;
-import com.kk.testdemo.model.PubRegion;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,9 +17,5 @@ public class TestdemoApplication {
 	}
 
 
-//	public TestdemoApplication(PubRegionJPA pubRegionJPA){
-//        PubRegion one = pubRegionJPA.findOne(1);
-//        System.out.println(one);
-//    }
 
 }
