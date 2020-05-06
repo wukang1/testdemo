@@ -18,8 +18,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * @author QiYuXiang
- * @date 2016年8月25日 下午3:06:07
+ * @author wk
+ * @date 2017年8月25日 下午3:06:07
  * @description 实体bean跟map互转
  * @modifyBy 修改人
  * @modifyDate 修改时间
